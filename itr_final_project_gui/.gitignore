@@ -1,0 +1,4 @@
+# Bỏ qua tệp cấu hình IDE
+.vscode/
+.settings/
+build-*/

@@ -1,0 +1,21 @@
+@startuml
+
+participant SENSOR   as "ECG sensor"
+participant BSP_ADC  as "BSP ADC\n(bsp_adc)"
+participant SYS_MNG  as "System manager\n(sys_mng)"
+participant TERMA    as "Middleware TERMA\n(terma)"
+participant DSP      as "Middleware DSP\n(arm_math)"
+participant SYS_UART as "System UART\n(sys_uart)"
+participant USB_UART as "USB UART"
+
+SENSOR    --> BSP_ADC : Read data from sensor by using ADC
+BSP_ADC   --> SYS_MNG : Send data to sys_mng 
+SYS_MNG   --> TERMA   : Process data
+TERMA     --> DSP     : Filter data
+DSP       --> TERMA   : 
+TERMA     --> TERMA   : Detect R peak
+TERMA     --> SYS_MNG : Return distance from current point\nto nearest peak if detected
+SYS_MNG   --> SYS_UART: Send data that want to transfer 
+SYS_UART  --> USB_UART: Send UART
+
+@enduml
